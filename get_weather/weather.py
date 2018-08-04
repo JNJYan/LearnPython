@@ -2,6 +2,7 @@
 import re
 import os
 import csv
+import asyncio
 import requests
 
 # 地区对应气象台站号
@@ -63,7 +64,7 @@ def _get_data(loc_str, year, month):
 
 
 def addheaders():
-    if not os.path.exists('./learnpython/get_weather/%s_2011-2028.csv' % loc_str):
+    if not os.path.exists('./learnpython/get_weather/%s_2011-2018.csv' % loc_str):
         with open('./learnpython/get_weather/%s_2011-2018.csv' % loc_str, 'w', newline='', encoding='gbk') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(headers)
@@ -73,9 +74,9 @@ def addheaders():
 if __name__ == "__main__":
     for loc_str in loc.keys():
         addheaders()
-        for year in range(2011, 2019):
+        for year in range(2018, 2019):
             rows_year = []
-            for month in range(1, 13):
+            for month in range(1, 6):
                 rows_month = _get_data(loc_str, year, month)
                 rows_year.append(rows_month)
             data2csv(rows_year, year, month)
