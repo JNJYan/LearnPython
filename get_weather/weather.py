@@ -2,7 +2,8 @@
 import re
 import os
 import csv
-import asyncio
+import time
+# import asyncio
 import requests
 
 # 地区对应气象台站号
@@ -32,7 +33,7 @@ def get_reponse(loc, year, month):
 
 def data2csv(rows_year, year, month):
     print("正在存储%s%d年天气数据......"  % (loc_str, year))
-    with open('./learnpython/get_weather/%s_2011-2018.csv' % loc_str, 'a', newline='', encoding='gbk') as csvfile:
+    with open('./learnpython/get_weather/%s_2018-2018.csv' % loc_str, 'a', newline='', encoding='gbk') as csvfile:
         writer = csv.writer(csvfile)
         for rows_month in rows_year:
             try:
@@ -40,6 +41,8 @@ def data2csv(rows_year, year, month):
             except:
                 pass
         csvfile.close()
+    print("添加成功")
+
 
 
 def _get_data(loc_str, year, month):
@@ -64,14 +67,16 @@ def _get_data(loc_str, year, month):
 
 
 def addheaders():
-    if not os.path.exists('./learnpython/get_weather/%s_2011-2018.csv' % loc_str):
-        with open('./learnpython/get_weather/%s_2011-2018.csv' % loc_str, 'w', newline='', encoding='gbk') as csvfile:
+    if not os.path.exists('./learnpython/get_weather/%s_2018-2018.csv' % loc_str):
+        with open('./learnpython/get_weather/%s_2018-2018.csv' % loc_str, 'w', newline='', encoding='gbk') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(headers)
             csvfile.close()
 
 
 if __name__ == "__main__":
+    # loop = asyncio.get_event_loop()
+    start = time.clock()
     for loc_str in loc.keys():
         addheaders()
         for year in range(2018, 2019):
@@ -80,4 +85,7 @@ if __name__ == "__main__":
                 rows_month = _get_data(loc_str, year, month)
                 rows_year.append(rows_month)
             data2csv(rows_year, year, month)
+    end = time.clock()
+    # loop.close()
+    print(end - start)
             
