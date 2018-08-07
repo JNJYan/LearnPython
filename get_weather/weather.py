@@ -10,7 +10,7 @@ import requests
 loc = {'北京市':54511, '北京市丰台区':71142, '烟台市':54765, '无锡市':58354}
 
 # 表头
-headers = ['date', 'temp_high', 'temp_low',
+table_headers = ['date', 'temp_high', 'temp_low',
                'weather', 'wind_direction', 'wind_power', 'aqi', 'aqiInfo', 'aqiLevel']
 
 
@@ -70,7 +70,7 @@ def addheaders():
     if not os.path.exists('./learnpython/get_weather/%s_2018-2018.csv' % loc_str):
         with open('./learnpython/get_weather/%s_2018-2018.csv' % loc_str, 'w', newline='', encoding='gbk') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(headers)
+            writer.writerow(table_headers)
             csvfile.close()
 
 
